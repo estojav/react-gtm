@@ -38,15 +38,15 @@ const TagManager = {
       auth,
       preview
     })
-    if (dataLayer) document.head.appendChild(gtm.dataScript)
     document.head.insertBefore(gtm.script(), document.head.childNodes[0])
     document.body.insertBefore(gtm.noScript(), document.body.childNodes[0])
+    if (dataLayer) document.head.insertBefore(gtm.dataScript, document.head.childNodes[0])
   },
   dataLayer: function ({dataLayer, dataLayerName = 'dataLayer'}) {
     if (window[dataLayerName]) return window[dataLayerName].push(dataLayer)
     const snippets = Snippets.dataLayer(dataLayer, dataLayerName)
     const dataScript = this.dataScript(snippets)
-    document.head.prepend(dataScript)
+    document.head.insertBefore(dataScript, document.head.childNodes[0])
   }
 }
 
